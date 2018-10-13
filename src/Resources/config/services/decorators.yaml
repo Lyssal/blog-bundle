@@ -1,0 +1,26 @@
+parameters:
+    lyssal.blog.decorator.blog.class: 'Lyssal\BlogBundle\Decorator\BlogDecorator'
+    lyssal.blog.decorator.category.class: 'Lyssal\BlogBundle\Decorator\CategoryDecorator'
+    lyssal.blog.decorator.post.class: 'Lyssal\BlogBundle\Decorator\PostDecorator'
+
+services:
+    lyssal.blog.decorator.blog:
+        class: '%lyssal.blog.decorator.blog.class%'
+        arguments: ['@lyssal.decorator']
+        public: true
+        tags:
+            - { name: 'lyssal.decorator' }
+
+    lyssal.blog.decorator.category:
+        class: '%lyssal.blog.decorator.category.class%'
+        arguments: ['@lyssal.decorator']
+        public: true
+        tags:
+            - { name: 'lyssal.decorator' }
+
+    lyssal.blog.decorator.post:
+        class: '%lyssal.blog.decorator.post.class%'
+        arguments: ['@lyssal.decorator']
+        public: true
+        tags:
+            - { name: 'lyssal.decorator' }

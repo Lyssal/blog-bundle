@@ -1,0 +1,20 @@
+parameters:
+    lyssal.blog.manager.blog.class: 'Lyssal\BlogBundle\Manager\BlogManager'
+    lyssal.blog.manager.category.class: 'Lyssal\BlogBundle\Manager\CategoryManager'
+    lyssal.blog.manager.post.class: 'Lyssal\BlogBundle\Manager\PostManager'
+
+services:
+    lyssal.blog.manager.blog:
+        class: '%lyssal.blog.manager.blog.class%'
+        arguments: ['@doctrine.orm.entity_manager', '%lyssal.blog.entity.blog.class%']
+        public: true
+
+    lyssal.blog.manager.category:
+        class: '%lyssal.blog.manager.category.class%'
+        arguments: ['@doctrine.orm.entity_manager', '%lyssal.blog.entity.category.class%']
+        public: true
+
+    lyssal.blog.manager.post:
+        class: '%lyssal.blog.manager.post.class%'
+        arguments: ['@doctrine.orm.entity_manager', '%lyssal.blog.entity.post.class%']
+        public: true

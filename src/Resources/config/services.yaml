@@ -1,0 +1,7 @@
+imports:
+    - { resource: 'services/*.yaml' }
+
+parameters:
+    lyssal.blog.entity.blog.class: 'Lyssal\BlogBundle\Entity\Blog'
+    lyssal.blog.entity.category.class: 'Lyssal\BlogBundle\Entity\Category'
+    lyssal.blog.entity.post.class: 'Lyssal\BlogBundle\Entity\Post'

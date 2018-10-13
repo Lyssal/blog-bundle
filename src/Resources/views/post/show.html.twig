@@ -1,0 +1,7 @@
+{% extends '@LyssalBlog/base.html.twig' %}
+
+{% block title %}{{ appellation(post) }}{% endblock %}
+
+{% block body %}
+    {{ include('@LyssalBlog/post/_show.html.twig') }}
+{% endblock %}

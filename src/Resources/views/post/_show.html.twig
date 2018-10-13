@@ -1,0 +1,6 @@
+<article class="lyssal-blog-post">
+    <h2 class="lyssal-blog-post__title">{{ appellation_html(post) }}</h2>
+    <div class="lyssal-blog-post__body">
+        {{ post.body|raw('html') }}
+    </div>
+</article>

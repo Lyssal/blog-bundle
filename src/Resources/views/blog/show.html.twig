@@ -1,0 +1,10 @@
+{% extends '@LyssalBlog/base.html.twig' %}
+
+{% block title %}{{ appellation(blog) }}{% endblock %}
+
+{% block body %}
+    <div class="lyssal-blog">
+        <h1 class="lyssal-blog__title">{{ appellation(blog) }}</h1>
+        {{ include('@LyssalBlog/post/_list.html.twig') }}
+    </div>
+{% endblock %}

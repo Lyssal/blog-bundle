@@ -1,0 +1,23 @@
+{
+    "name": "lyssal/blog-bundle",
+    "description": "A simple blog for Symfony 4.",
+	"license" : "proprietary",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Rémi Leclerc",
+            "homepage": "http://www.lyssal.com/"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "~4",
+        "lyssal/doctrine-orm-bundle": "~0.1",
+        "lyssal/entity-bundle": "~0.1",
+        "lyssal/pagerfanta-bundle": "~0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lyssal\\BlogBundle\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,5 @@
+<div class="lyssal-blog-post-list">
+    {%- for post in posts -%}
+        {{ include('@LyssalBlog/post/_show.html.twig') }}
+    {%- endfor -%}
+</div>
