@@ -7,13 +7,7 @@
 composer require lyssal/blog-bundle
 ```
 
-* Register these bundles in your kernel file:
-
-```
-Lyssal\BlogBundle\LyssalBlogBundle
-Lyssal\Doctrine\OrmBundle\LyssalDoctrineOrmBundle
-Lyssal\EntityBundle\LyssalEntityBundle
-```
+* Register manually the installed bundles in your kernel file if needed
 
 * Overload the mapped super classes
 

@@ -9,6 +9,7 @@ namespace Lyssal\BlogBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Lyssal\SeoBundle\Entity\Page;
 
 /**
  * A blog.
@@ -27,11 +28,12 @@ class Blog
     protected $id;
 
     /**
-     * @var string The name
+     * @var \Lyssal\SeoBundle\Entity\Page The SEO page
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Lyssal\SeoBundle\Entity\Page", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    protected $name;
+    protected $page;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<\Lyssal\BlogBundle\Entity\Post> The posts
@@ -52,14 +54,14 @@ class Blog
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getPage(): ?Page
     {
-        return $this->name;
+        return $this->page;
     }
 
-    public function setName(string $name): self
+    public function setPage(?Page $page): self
     {
-        $this->name = $name;
+        $this->page = $page;
 
         return $this;
     }
@@ -103,6 +105,6 @@ class Blog
      */
     public function __toString()
     {
-        return (string) $this->name;
+        return (string) $this->page;
     }
 }

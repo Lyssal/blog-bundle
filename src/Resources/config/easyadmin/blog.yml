@@ -1,0 +1,9 @@
+easy_admin:
+    entities:
+        Blog:
+            class: '%lyssal.blog.entity.blog.class%'
+            form:
+                fields:
+                    - { type: 'section', label: 'seo.informations' }
+                    - { property: 'page', label: false, type: 'Lyssal\SeoBundle\Form\Type\PageType' }
+

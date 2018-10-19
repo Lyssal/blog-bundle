@@ -1,0 +1,10 @@
+easy_admin:
+    entities:
+        Category:
+            class: '%lyssal.blog.entity.category.class%'
+            form:
+                fields:
+                    - { type: 'section', label: 'seo.informations' }
+                    - { property: 'page', label: false, type: 'Lyssal\SeoBundle\Form\Type\PageType' }
+                    - { type: 'divider' }
+                    - 'parent'

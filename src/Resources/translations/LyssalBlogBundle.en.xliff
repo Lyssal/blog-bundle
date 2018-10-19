@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="fr" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="blog">
+                <source>blog</source>
+                <target>Blog</target>
+            </trans-unit>
+            <trans-unit id="body">
+                <source>body</source>
+                <target>Body</target>
+            </trans-unit>
+            <trans-unit id="categories">
+                <source>categories</source>
+                <target>Categories</target>
+            </trans-unit>
+            <trans-unit id="online">
+                <source>online</source>
+                <target>Online</target>
+            </trans-unit>
+            <trans-unit id="parent">
+                <source>parent</source>
+                <target>Parent</target>
+            </trans-unit>
+            <trans-unit id="published_from">
+                <source>published_from</source>
+                <target>Start publication</target>
+            </trans-unit>
+            <trans-unit id="published_until">
+                <source>published_until</source>
+                <target>End publication</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

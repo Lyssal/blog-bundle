@@ -1,0 +1,15 @@
+easy_admin:
+    entities:
+        Post:
+            class: '%lyssal.blog.entity.post.class%'
+            form:
+                fields:
+                    - 'blog'
+                    - { type: 'section', label: 'seo.informations' }
+                    - { property: 'page', label: false, type: 'Lyssal\SeoBundle\Form\Type\PageType' }
+                    - { type: 'divider' }
+                    - 'body'
+                    - 'online'
+                    - 'publishedFrom'
+                    - 'publishedUntil'
+                    - 'categories'

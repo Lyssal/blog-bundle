@@ -5,3 +5,16 @@ parameters:
     lyssal.blog.entity.blog.class: 'Lyssal\BlogBundle\Entity\Blog'
     lyssal.blog.entity.category.class: 'Lyssal\BlogBundle\Entity\Category'
     lyssal.blog.entity.post.class: 'Lyssal\BlogBundle\Entity\Post'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $blogClassname: '%lyssal.blog.entity.blog.class%'
+            $categoryClassname: '%lyssal.blog.entity.category.class%'
+            $postClassname: '%lyssal.blog.entity.post.class%'
+
+    Lyssal\BlogBundle\:
+        resource: '../../{Form}/'

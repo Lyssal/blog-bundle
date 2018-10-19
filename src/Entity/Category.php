@@ -7,8 +7,10 @@
  */
 namespace Lyssal\BlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Lyssal\SeoBundle\Entity\Page;
 
 /**
  * A category.
@@ -27,16 +29,18 @@ class Category
     protected $id;
 
     /**
-     * @var string The name
+     * @var \Lyssal\SeoBundle\Entity\Page The SEO page
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Lyssal\SeoBundle\Entity\Page", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    protected $name;
+    protected $page;
 
     /**
      * @var \Lyssal\BlogBundle\Entity\Category The parent category
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $parent;
 
@@ -67,14 +71,14 @@ class Category
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getPage(): ?Page
     {
-        return $this->name;
+        return $this->page;
     }
 
-    public function setName(string $name): self
+    public function setPage(?Page $page): self
     {
-        $this->name = $name;
+        $this->page = $page;
 
         return $this;
     }
@@ -158,6 +162,6 @@ class Category
      */
     public function __toString()
     {
-        return (string) $this->name;
+        return (string) $this->page;
     }
 }

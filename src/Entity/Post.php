@@ -10,11 +10,13 @@ namespace Lyssal\BlogBundle\Entity;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Lyssal\SeoBundle\Entity\Page;
 
 /**
  * A post.
  *
  * @ORM\MappedSuperclass(repositoryClass="Lyssal\BlogBundle\Repository\PostRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Post
 {
@@ -31,15 +33,17 @@ class Post
      * @var \Lyssal\BlogBundle\Entity\Blog The blog
      *
      * @ORM\ManyToOne(targetEntity="Blog", inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $blog;
 
     /**
-     * @var string The title
+     * @var \Lyssal\SeoBundle\Entity\Page The SEO page
      *
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Lyssal\SeoBundle\Entity\Page", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    protected $title;
+    protected $page;
 
     /**
      * @var string The body
@@ -94,6 +98,7 @@ class Post
     public function __construct()
     {
         $this->online = true;
+        $this->publishedFrom = new DateTime();
         $this->categories = new ArrayCollection();
     }
 
@@ -115,14 +120,14 @@ class Post
         return $this;
     }
 
-    public function getTitle(): ?string
+    public function getPage(): ?Page
     {
-        return $this->title;
+        return $this->page;
     }
 
-    public function setTitle(string $title): self
+    public function setPage(?Page $page): self
     {
-        $this->title = $title;
+        $this->page = $page;
 
         return $this;
     }
@@ -227,13 +232,35 @@ class Post
 
 
     /**
+     * Init the creation date.
+     *
+     * @ORM\PrePersist()
+     */
+    protected function initCreatedAt()
+    {
+        $this->createdAt = new DateTime();
+    }
+
+    /**
+     * Init the last modification date.
+     *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    protected function initUpdatedAt()
+    {
+        $this->updatedAt = new DateTime();
+    }
+
+
+    /**
      * Get the title.
      *
      * @return string The title
      */
     public function __toString()
     {
-        return (string) $this->title;
+        return (string) $this->page;
     }
 
 

@@ -1,7 +1,7 @@
 {
     "name": "lyssal/blog-bundle",
     "description": "A simple blog for Symfony 4.",
-	"license" : "proprietary",
+	  "license" : "proprietary",
     "type": "symfony-bundle",
     "authors": [
         {
@@ -11,7 +11,7 @@
     ],
     "require": {
         "symfony/framework-bundle": "~4",
-        "lyssal/doctrine-orm-bundle": "~0.1",
+        "lyssal/seo-bundle": "~0.1",
         "lyssal/entity-bundle": "~0.1",
         "lyssal/pagerfanta-bundle": "~0.1"
     },
