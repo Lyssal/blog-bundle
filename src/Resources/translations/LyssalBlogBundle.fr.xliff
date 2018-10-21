@@ -14,10 +14,6 @@
                 <source>categories</source>
                 <target>Catégories</target>
             </trans-unit>
-            <trans-unit id="online">
-                <source>online</source>
-                <target>En ligne</target>
-            </trans-unit>
             <trans-unit id="parent">
                 <source>parent</source>
                 <target>Parent</target>

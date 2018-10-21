@@ -1,4 +1,4 @@
 imports:
-    - { resource: 'easyadmin/blog.yml' }
-    - { resource: 'easyadmin/post.yml' }
-    - { resource: 'easyadmin/category.yml' }
+    - { resource: 'easyadmin/blog.yaml' }
+    - { resource: 'easyadmin/post.yaml' }
+    - { resource: 'easyadmin/category.yaml' }

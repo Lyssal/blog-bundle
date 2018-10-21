@@ -52,10 +52,6 @@ class PostType extends AbstractType
                 'label' => 'body',
                 'translation_domain' => 'LyssalBlogBundle'
             ])
-            ->add('online', null, [
-                'label' => 'online',
-                'translation_domain' => 'LyssalBlogBundle'
-            ])
             ->add('published_from', null, [
                 'label' => 'published_from',
                 'translation_domain' => 'LyssalBlogBundle'

@@ -10,7 +10,8 @@ namespace Lyssal\BlogBundle\Entity;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Lyssal\SeoBundle\Entity\Page;
+use Lyssal\SeoBundle\Entity\PageableInterface;
+use Lyssal\SeoBundle\Entity\Traits\PageTrait;
 
 /**
  * A post.
@@ -18,8 +19,11 @@ use Lyssal\SeoBundle\Entity\Page;
  * @ORM\MappedSuperclass(repositoryClass="Lyssal\BlogBundle\Repository\PostRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Post
+class Post implements PageableInterface
 {
+    use PageTrait;
+
+
     /**
      * @var int The ID
      *
@@ -40,7 +44,7 @@ class Post
     /**
      * @var \Lyssal\SeoBundle\Entity\Page The SEO page
      *
-     * @ORM\ManyToOne(targetEntity="Lyssal\SeoBundle\Entity\Page", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Lyssal\SeoBundle\Entity\Page")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $page;
@@ -51,13 +55,6 @@ class Post
      * @ORM\Column(type="text", nullable=false)
      */
     protected $body;
-
-    /**
-     * @var bool If the post is online
-     *
-     * @ORM\Column(type="boolean", nullable=false)
-     */
-    protected $online;
 
     /**
      * @var \DateTime The creation date
@@ -120,18 +117,6 @@ class Post
         return $this;
     }
 
-    public function getPage(): ?Page
-    {
-        return $this->page;
-    }
-
-    public function setPage(?Page $page): self
-    {
-        $this->page = $page;
-
-        return $this;
-    }
-
     public function getBody(): ?string
     {
         return $this->body;
@@ -140,18 +125,6 @@ class Post
     public function setBody(string $body): self
     {
         $this->body = $body;
-
-        return $this;
-    }
-
-    public function getOnline(): ?bool
-    {
-        return $this->online;
-    }
-
-    public function setOnline(bool $online): self
-    {
-        $this->online = $online;
 
         return $this;
     }
@@ -236,7 +209,7 @@ class Post
      *
      * @ORM\PrePersist()
      */
-    protected function initCreatedAt()
+    public function initCreatedAt()
     {
         $this->createdAt = new DateTime();
     }
@@ -247,7 +220,7 @@ class Post
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    protected function initUpdatedAt()
+    public function initUpdatedAt()
     {
         $this->updatedAt = new DateTime();
     }
@@ -261,6 +234,15 @@ class Post
     public function __toString()
     {
         return (string) $this->page;
+    }
+
+
+    /**
+     * @see \Lyssal\Seo\Model\PageableInterface::getPatternForSlug()
+     */
+    public function getPatternForSlug()
+    {
+        return $this->page->getTitle();
     }
 
 

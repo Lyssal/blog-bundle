@@ -10,14 +10,19 @@ namespace Lyssal\BlogBundle\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Lyssal\SeoBundle\Entity\Page;
+use Lyssal\SeoBundle\Entity\PageableInterface;
+use Lyssal\SeoBundle\Entity\Traits\PageTrait;
 
 /**
  * A blog.
  *
  * @ORM\MappedSuperclass(repositoryClass="Lyssal\BlogBundle\Repository\BlogRepository")
  */
-class Blog
+class Blog implements PageableInterface
 {
+    use PageTrait;
+
+
     /**
      * @var int The ID
      *
@@ -52,18 +57,6 @@ class Blog
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPage(): ?Page
-    {
-        return $this->page;
-    }
-
-    public function setPage(?Page $page): self
-    {
-        $this->page = $page;
-
-        return $this;
     }
 
     /**
