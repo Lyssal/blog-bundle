@@ -36,6 +36,14 @@ class Category implements PageableInterface, ControllerableInterface
     protected $id;
 
     /**
+     * @var \Lyssal\BlogBundle\Entity\Blog The blog
+     *
+     * @ORM\ManyToOne(targetEntity="Blog", inversedBy="categories")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $blog;
+
+    /**
      * @var \Lyssal\SeoBundle\Entity\Page The SEO page
      *
      * @ORM\ManyToOne(targetEntity="Lyssal\SeoBundle\Entity\Page", cascade={"persist"})
@@ -76,6 +84,18 @@ class Category implements PageableInterface, ControllerableInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getBlog(): ?Blog
+    {
+        return $this->blog;
+    }
+
+    public function setBlog(?Blog $blog): self
+    {
+        $this->blog = $blog;
+
+        return $this;
     }
 
     public function getParent(): ?self

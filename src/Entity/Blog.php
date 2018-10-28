@@ -11,7 +11,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Lyssal\BlogBundle\Controller\BlogController;
 use Lyssal\EntityBundle\Entity\ControllerableInterface;
-use Lyssal\SeoBundle\Entity\Page;
 use Lyssal\SeoBundle\Entity\PageableInterface;
 use Lyssal\SeoBundle\Entity\Traits\PageTrait;
 
@@ -43,6 +42,13 @@ class Blog implements PageableInterface, ControllerableInterface
     protected $page;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection<\Lyssal\BlogBundle\Entity\Category> The categories
+     *
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="blog")
+     */
+    protected $categories;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection<\Lyssal\BlogBundle\Entity\Post> The posts
      *
      * @ORM\OneToMany(targetEntity="Post", mappedBy="blog")
@@ -59,6 +65,37 @@ class Blog implements PageableInterface, ControllerableInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->setBlog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+            // set the owning side to null (unless already changed)
+            if ($category->getBlog() === $this) {
+                $category->setBlog(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
