@@ -7,6 +7,7 @@
  */
 namespace Lyssal\BlogBundle\Manager;
 
+use DateTime;
 use Doctrine\Common\Collections\Criteria;
 use Lyssal\BlogBundle\Entity\Blog;
 use Lyssal\BlogBundle\Entity\Category;
@@ -30,11 +31,26 @@ class PostManager extends EntityManager
      */
     public function getPagerFantaByBlog(Blog $blog, $limit = 20, $currentPage = 1): Pagerfanta
     {
+        $now = new DateTime();
+
         return $this->getRepository()->getPagerFantaFindBy(
-            ['blog' => $blog],
+            [
+                'blog' => $blog,
+                'page.online' => true,
+                QueryBuilder::WHERE_LESS_OR_EQUAL => ['publishedFrom' => $now],
+                QueryBuilder::OR_WHERE => [
+                    QueryBuilder::WHERE_NULL => 'publishedUntil',
+                    QueryBuilder::WHERE_GREATER => ['publishedUntil' => $now]
+                ]
+            ],
             ['publishedFrom' => Criteria::DESC],
             $limit,
-            $currentPage
+            $currentPage,
+            [
+                QueryBuilder::INNER_JOINS => [
+                    'page' => 'page'
+                ]
+            ]
          );
     }
 
@@ -49,13 +65,26 @@ class PostManager extends EntityManager
      */
     public function getPagerFantaByCategory(Category $category, $limit = 20, $currentPage = 1): Pagerfanta
     {
+        $now = new DateTime();
+
         return $this->getRepository()->getPagerFantaFindBy(
-            ['category' => $category],
+            [
+                'category' => $category,
+                'page.online' => true,
+                QueryBuilder::WHERE_LESS_OR_EQUAL => ['publishedFrom' => $now],
+                QueryBuilder::OR_WHERE => [
+                    QueryBuilder::WHERE_NULL => 'publishedUntil',
+                    QueryBuilder::WHERE_GREATER => ['publishedUntil' => $now]
+                ]
+            ],
             ['publishedFrom' => Criteria::DESC],
             $limit,
             $currentPage,
             [
-                QueryBuilder::INNER_JOINS => ['categories' => 'category']
+                QueryBuilder::INNER_JOINS => [
+                    'categories' => 'category',
+                    'page' => 'page'
+                ]
             ]
          );
     }

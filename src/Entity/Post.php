@@ -272,17 +272,39 @@ class Post implements PageableInterface, ControllerableInterface
     /**
      * Return if the post is visible in front.
      *
-     * @return bool If it is visible
+     * @return bool If it is accessible
      */
-    public function isVisible()
+    public function isAccessible()
     {
         $now = new DateTime();
 
         return
-            $this->online
+            $this->page->isAccessible()
+            && $this->blog->isAccessible()
             && $this->publishedFrom < $now
             && (null === $this->publishedUntil || $this->publishedUntil > $now)
         ;
+    }
+
+    /**
+     * Get the accessible categories.
+     *
+     * @return \Lyssal\BlogBundle\Entity\Category[] The categories
+     */
+    public function getAccessibleCategories()
+    {
+        $categories = [];
+
+        /**
+         * @var \Lyssal\BlogBundle\Entity\Category $category
+         */
+        foreach ($this->categories as $category) {
+            if ($category->isAccessible()) {
+                $categories[] = $category;
+            }
+        }
+
+        return $categories;
     }
 
 

@@ -148,4 +148,18 @@ class Blog implements PageableInterface, ControllerableInterface
     {
         return [BlogController::class.'::show', ['blog' => $this->id]];
     }
+
+
+    /**
+     * Return if the blog is visible in front.
+     *
+     * @return bool If it is accessible
+     */
+    public function isAccessible()
+    {
+        return
+            null !== $this->page
+            && $this->page->isAccessible()
+        ;
+    }
 }

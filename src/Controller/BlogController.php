@@ -29,7 +29,7 @@ class BlogController extends AbstractController
          */
         $blog = $this->container->get('lyssal.blog.manager.blog')->findOneById($blog);
 
-        if (null === $blog) {
+        if (null === $blog || !$blog->isAccessible()) {
             throw $this->createNotFoundException();
         }
 

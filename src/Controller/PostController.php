@@ -29,7 +29,7 @@ class PostController extends AbstractController
          */
         $post = $this->container->get('lyssal.blog.manager.post')->findOneById($post);
 
-        if (null === $post) {
+        if (null === $post || !$post->isAccessible()) {
             throw $this->createNotFoundException();
         }
 

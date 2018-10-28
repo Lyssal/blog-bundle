@@ -29,7 +29,7 @@ class CategoryController extends AbstractController
          */
         $category = $this->container->get('lyssal.blog.manager.category')->findOneById($category);
 
-        if (null === $category) {
+        if (null === $category || !$category->isAccessible()) {
             throw $this->createNotFoundException();
         }
 

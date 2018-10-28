@@ -196,4 +196,18 @@ class Category implements PageableInterface, ControllerableInterface
     {
         return [CategoryController::class.'::show', ['category' => $this->id]];
     }
+
+
+    /**
+     * Return if the category is visible in front.
+     *
+     * @return bool If it is accessible
+     */
+    public function isAccessible()
+    {
+        return
+            $this->page->isAccessible()
+            && $this->blog->isAccessible()
+        ;
+    }
 }
