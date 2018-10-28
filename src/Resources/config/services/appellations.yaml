@@ -1,25 +1,18 @@
-parameters:
-    lyssal.blog.appellation.blog.class: 'Lyssal\BlogBundle\Appellation\BlogAppellation'
-    lyssal.blog.appellation.category.class: 'Lyssal\BlogBundle\Appellation\CategoryAppellation'
-    lyssal.blog.appellation.post.class: 'Lyssal\BlogBundle\Appellation\PostAppellation'
-
 services:
-    lyssal.blog.appellation.blog:
-        class: '%lyssal.blog.appellation.blog.class%'
-        arguments: ['@router']
-        public: true
+    _defaults:
+        autowire: true
+        public: false
+        bind:
+            $entityRouterManager: '@lyssal.entity_router'
+
+    Lyssal\BlogBundle\Appellation\BlogAppellation:
         tags:
             - { name: 'lyssal.appellation' }
 
-    lyssal.blog.appellation.category:
-        class: '%lyssal.blog.appellation.category.class%'
-        public: true
+    Lyssal\BlogBundle\Appellation\CategoryAppellation:
         tags:
             - { name: 'lyssal.appellation' }
 
-    lyssal.blog.appellation.post:
-        class: '%lyssal.blog.appellation.post.class%'
-        arguments: ['@router']
-        public: true
+    Lyssal\BlogBundle\Appellation\PostAppellation:
         tags:
             - { name: 'lyssal.appellation' }

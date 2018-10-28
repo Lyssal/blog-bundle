@@ -10,6 +10,9 @@ namespace Lyssal\BlogBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Lyssal\BlogBundle\Controller\CategoryController;
+use Lyssal\EntityBundle\Entity\ControllerableInterface;
+use Lyssal\SeoBundle\Entity\Page;
 use Lyssal\SeoBundle\Entity\PageableInterface;
 use Lyssal\SeoBundle\Entity\Traits\PageTrait;
 
@@ -18,7 +21,7 @@ use Lyssal\SeoBundle\Entity\Traits\PageTrait;
  *
  * @ORM\MappedSuperclass(repositoryClass="Lyssal\BlogBundle\Repository\CategoryRepository")
  */
-class Category implements PageableInterface
+class Category implements PageableInterface, ControllerableInterface
 {
     use PageTrait;
 
@@ -155,5 +158,22 @@ class Category implements PageableInterface
     public function __toString()
     {
         return (string) $this->page;
+    }
+
+
+    /**
+     * @see \Lyssal\Seo\Model\PageableInterface::getPatternForSlug()
+     */
+    public function getPatternForSlug()
+    {
+        return 'Categories/'.$this->page->getTitle();
+    }
+
+    /**
+     * \Lyssal\EntityBundle\Entity\ControllerableInterface::getControllerProperties()
+     */
+    public function getControllerProperties(): array
+    {
+        return [CategoryController::class.'::show', ['category' => $this->id]];
     }
 }

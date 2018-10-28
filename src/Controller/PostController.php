@@ -24,6 +24,9 @@ class PostController extends AbstractController
      */
     public function show($post)
     {
+        /**
+         * @var \Lyssal\BlogBundle\Entity\Post $post
+         */
         $post = $this->container->get('lyssal.blog.manager.post')->findOneById($post);
 
         if (null === $post) {
@@ -31,6 +34,7 @@ class PostController extends AbstractController
         }
 
         return $this->render('@LyssalBlog/post/show.html.twig', [
+            'page' => $post->getPage(),
             'post' => $this->container->get('lyssal.decorator')->get($post)
         ]);
     }

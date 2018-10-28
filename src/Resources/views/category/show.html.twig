@@ -1,8 +1,8 @@
 {% extends '@LyssalBlog/base.html.twig' %}
 
 {% block content %}
-    <div class="lyssal-blog">
-        <h1 class="lyssal-blog__title">{{ appellation(page.website) }}</h1>
+    <div class="lyssal-blog-category">
+        <h1 class="lyssal-blog-category__title">{{ appellation_html(category) }}</h1>
         {{ include('@LyssalBlog/post/_list.html.twig') }}
     </div>
 {% endblock %}

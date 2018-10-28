@@ -1,0 +1,9 @@
+{%- if post.categories|length > 0 -%}
+    <nav class="lyssal-blog-post-categories">
+        <ul>
+            {%- for category in post.categories -%}
+                <li>{{ appellation_html(category) }}</li>
+            {%- endfor -%}
+        </ul>
+    </nav>
+{%- endif -%}

@@ -12,7 +12,6 @@
     "require": {
         "symfony/framework-bundle": "~4",
         "lyssal/seo-bundle": "~0.1",
-        "lyssal/entity-bundle": "~0.1",
         "lyssal/pagerfanta-bundle": "~0.1"
     },
     "autoload": {

@@ -1,7 +1,11 @@
 {% extends '@LyssalBlog/base.html.twig' %}
 
-{% block title %}{{ appellation(post) }}{% endblock %}
-
-{% block body %}
-    {{ include('@LyssalBlog/post/_show.html.twig') }}
+{% block content %}
+    <article class="lyssal-blog-post">
+        <h1 class="lyssal-blog-post__title">{{ appellation_html(post) }}</h1>
+        <div class="lyssal-blog-post__body">
+            {{ post.body|raw('html') }}
+        </div>
+        {{ include('@LyssalBlog/post/_category/list.html.twig') }}
+    </article>
 {% endblock %}

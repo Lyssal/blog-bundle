@@ -10,6 +10,8 @@ namespace Lyssal\BlogBundle\Entity;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Lyssal\BlogBundle\Controller\PostController;
+use Lyssal\EntityBundle\Entity\ControllerableInterface;
 use Lyssal\SeoBundle\Entity\PageableInterface;
 use Lyssal\SeoBundle\Entity\Traits\PageTrait;
 
@@ -19,7 +21,7 @@ use Lyssal\SeoBundle\Entity\Traits\PageTrait;
  * @ORM\MappedSuperclass(repositoryClass="Lyssal\BlogBundle\Repository\PostRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Post implements PageableInterface
+class Post implements PageableInterface, ControllerableInterface
 {
     use PageTrait;
 
@@ -44,7 +46,7 @@ class Post implements PageableInterface
     /**
      * @var \Lyssal\SeoBundle\Entity\Page The SEO page
      *
-     * @ORM\ManyToOne(targetEntity="Lyssal\SeoBundle\Entity\Page")
+     * @ORM\ManyToOne(targetEntity="Lyssal\SeoBundle\Entity\Page", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     protected $page;
@@ -94,7 +96,6 @@ class Post implements PageableInterface
 
     public function __construct()
     {
-        $this->online = true;
         $this->publishedFrom = new DateTime();
         $this->categories = new ArrayCollection();
     }
@@ -242,7 +243,19 @@ class Post implements PageableInterface
      */
     public function getPatternForSlug()
     {
-        return $this->page->getTitle();
+        $slugPattern = '';
+
+        if (count($this->categories) > 0) {
+            foreach ($this->categories as $category) {
+                $slugPattern .= $category.'-';
+            }
+
+            $slugPattern = substr($slugPattern, 0, -1).'/';
+        }
+
+        $slugPattern .= $this->page->getTitle();
+
+        return $slugPattern;
     }
 
 
@@ -270,5 +283,14 @@ class Post implements PageableInterface
             && $this->publishedFrom < $now
             && (null === $this->publishedUntil || $this->publishedUntil > $now)
         ;
+    }
+
+
+    /**
+     * \Lyssal\EntityBundle\Entity\ControllerableInterface::getControllerProperties()
+     */
+    public function getControllerProperties(): array
+    {
+        return [PostController::class.'::show', ['post' => $this->id]];
     }
 }

@@ -24,15 +24,19 @@ class BlogController extends AbstractController
      */
     public function show($blog)
     {
+        /**
+         * @var \Lyssal\BlogBundle\Entity\Blog $blog
+         */
         $blog = $this->container->get('lyssal.blog.manager.blog')->findOneById($blog);
 
         if (null === $blog) {
             throw $this->createNotFoundException();
         }
 
-        $posts = $this->container->get('lyssal.blog.manager.post')->getPagerFanta($blog);
+        $posts = $this->container->get('lyssal.blog.manager.post')->getPagerFantaByBlog($blog);
 
         return $this->render('@LyssalBlog/blog/show.html.twig', [
+            'page' => $blog->getPage(),
             'blog' => $this->container->get('lyssal.decorator')->get($blog),
             'posts' => $posts
         ]);

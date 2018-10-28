@@ -9,6 +9,8 @@ namespace Lyssal\BlogBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Lyssal\BlogBundle\Controller\BlogController;
+use Lyssal\EntityBundle\Entity\ControllerableInterface;
 use Lyssal\SeoBundle\Entity\Page;
 use Lyssal\SeoBundle\Entity\PageableInterface;
 use Lyssal\SeoBundle\Entity\Traits\PageTrait;
@@ -18,7 +20,7 @@ use Lyssal\SeoBundle\Entity\Traits\PageTrait;
  *
  * @ORM\MappedSuperclass(repositoryClass="Lyssal\BlogBundle\Repository\BlogRepository")
  */
-class Blog implements PageableInterface
+class Blog implements PageableInterface, ControllerableInterface
 {
     use PageTrait;
 
@@ -99,5 +101,14 @@ class Blog implements PageableInterface
     public function __toString()
     {
         return (string) $this->page;
+    }
+
+
+    /**
+     * \Lyssal\EntityBundle\Entity\ControllerableInterface::getControllerProperties()
+     */
+    public function getControllerProperties(): array
+    {
+        return [BlogController::class.'::show', ['blog' => $this->id]];
     }
 }
