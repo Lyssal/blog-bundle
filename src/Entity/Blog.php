@@ -7,6 +7,7 @@
  */
 namespace Lyssal\BlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Lyssal\BlogBundle\Controller\BlogController;
@@ -58,6 +59,7 @@ class Blog implements PageableInterface, ControllerableInterface
 
     public function __construct()
     {
+        $this->categories = new ArrayCollection();
         $this->posts = new ArrayCollection();
     }
 
