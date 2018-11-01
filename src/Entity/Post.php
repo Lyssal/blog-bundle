@@ -271,6 +271,22 @@ class Post implements PageableInterface, ControllerableInterface
     }
 
     /**
+     * @see \App\Entity\Seo\Page::getAuthor()
+     */
+    public function getAuthor()
+    {
+        if (null !== $this->page) {
+            if (null !== $this->page->getAuthor()) {
+                return $this->page->getAuthor();
+            }
+
+            return $this->page->getWebsite()->getAuthor();
+        }
+
+        return null;
+    }
+
+    /**
      * Return if the post is visible in front.
      *
      * @return bool If it is accessible
