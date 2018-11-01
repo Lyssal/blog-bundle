@@ -265,7 +265,7 @@ class Post implements PageableInterface, ControllerableInterface
      *
      * @return \DateTime The published date
      */
-    public function getDate()
+    public function getDate(): DateTime
     {
         return $this->publishedFrom;
     }
