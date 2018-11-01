@@ -1,7 +1,16 @@
-<article class="lyssal-blog-post">
+<article class="lyssal-blog-post preview">
+    {%- if post.hasImage -%}
+        <div class="lyssal-blog-post__image">
+            <a href="{{ entity_path(post) }}"><img src="{{ asset(post.imagePath) }}" alt="{{ appellation(post) }}"></a>
+        </div>
+    {%- endif -%}
     <h2 class="lyssal-blog-post__title">{{ appellation_html(post) }}</h2>
+    <div class="lyssal-blog-post__caracteristics">
+        {{ 'post.caracteristic.date'|trans({'%date%': post.date|date('d/m/Y')}, 'LyssalBlogBundle') }}
+    </div>
     <div class="lyssal-blog-post__body">
-        {{ post.body|raw('html') }}
+        {{ post.page.content|raw('html') }}
     </div>
     {{ include('@LyssalBlog/post/_category/list.html.twig') }}
+    <div class="lyssal-blog-post__end"></div>
 </article>

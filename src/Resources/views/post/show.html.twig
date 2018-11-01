@@ -2,7 +2,19 @@
 
 {% block content %}
     <article class="lyssal-blog-post">
-        <h1 class="lyssal-blog-post__title">{{ appellation_html(post) }}</h1>
+        <h1 class="lyssal-blog-post__title">{{ appellation(post) }}</h1>
+        {%- if post.hasImage -%}
+            <div class="lyssal-blog-post__image">
+                <img src="{{ asset(post.imagePath) }}" alt="{{ appellation(post) }}">
+            </div>
+        {%- endif -%}
+        <div class="lyssal-blog-post__caracteristics">
+            {%- set author = post.author %}
+            {%- if author is not empty -%}
+                {{ 'post.caracteristic.author'|trans({'%author%': author}, 'LyssalBlogBundle') }},
+            {%- endif %}
+            {{ 'post.caracteristic.date'|trans({'%date%': post.date|date('d/m/Y')}, 'LyssalBlogBundle') }}
+        </div>
         <div class="lyssal-blog-post__body">
             {{ post.body|raw('html') }}
         </div>

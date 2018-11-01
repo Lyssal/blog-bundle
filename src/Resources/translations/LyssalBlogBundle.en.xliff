@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="fr" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="COLON">
+                <source>COLON</source>
+                <target>:</target>
+            </trans-unit>
             <trans-unit id="blog">
                 <source>blog</source>
                 <target>Blog</target>
@@ -14,9 +18,21 @@
                 <source>categories</source>
                 <target>Categories</target>
             </trans-unit>
+            <trans-unit id="category">
+                <source>category</source>
+                <target>Category</target>
+            </trans-unit>
             <trans-unit id="parent">
                 <source>parent</source>
                 <target>Parent</target>
+            </trans-unit>
+            <trans-unit id="post.caracteristic.author">
+                <source>post.caracteristic.author</source>
+                <target>by %author%</target>
+            </trans-unit>
+            <trans-unit id="post.caracteristic.date">
+                <source>post.caracteristic.date</source>
+                <target>%date%</target>
             </trans-unit>
             <trans-unit id="published_from">
                 <source>published_from</source>

@@ -1,5 +1,7 @@
 {%- if post.accessibleCategories|length > 0 -%}
     <nav class="lyssal-blog-post-categories">
+        {{ (('categor'~(1 == post.accessibleCategories|length ? 'y' : 'ies'))|trans({}, 'LyssalBlogBundle'))|capitalize }}
+        {{- 'COLON'|trans({}, 'LyssalBlogBundle') }}
         <ul>
             {%- for category in post.accessibleCategories -%}
                 <li>{{ appellation_html(category) }}</li>

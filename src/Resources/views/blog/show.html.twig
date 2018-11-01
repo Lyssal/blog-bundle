@@ -2,7 +2,9 @@
 
 {% block content %}
     <div class="lyssal-blog">
-        <h1 class="lyssal-blog__title">{{ appellation(page.website) }}</h1>
+        <div class="lyssal-blog__properties">
+            <h1 class="lyssal-blog__title">{{ appellation(blog) }}</h1>
+        </div>
         {{ include('@LyssalBlog/post/_list.html.twig') }}
     </div>
 {% endblock %}
