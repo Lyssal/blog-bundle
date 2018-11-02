@@ -27,6 +27,10 @@ bin/console doctrine:schema:update --force
 For example:
 
 ```yaml
+seo:
+    resource: '@LyssalSeoBundle/Resources/config/routing.yaml'
+
+# Call LyssalBlog after LyssalSeo to not use the LyssalBlog paths (The LyssalSeo page path will overload the LyssalBlog paths)
 blog:
-    resource: '@LyssalBlogBundle/Resources/config/routing.yml'
+    resource: '@LyssalBlogBundle/Resources/config/routing.yaml'
 ```
