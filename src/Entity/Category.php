@@ -222,4 +222,16 @@ class Category implements PageableInterface, BreadcrumbableInterface, Controller
             && $this->blog->isAccessible()
         ;
     }
+
+    /**
+     * Get the accessible children.
+     *
+     * @return \Doctrine\Common\Collections\Collection The accessible children
+     */
+    public function getAccessibleChildren(): Collection
+    {
+        return $this->children->filter(function (Category $category) {
+            return $category->isAccessible();
+        });
+    }
 }

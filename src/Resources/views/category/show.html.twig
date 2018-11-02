@@ -8,6 +8,8 @@
     <div class="lyssal-blog-category">
         <div class="lyssal-blog-category__properties">
             <h1 class="lyssal-blog-category__title">{{ appellation(category) }}</h1>
+
+            {{ include('@LyssalBlog/category/_list.html.twig', { 'categories': category.accessibleChildren }) }}
         </div>
         {{ include('@LyssalBlog/post/_list.html.twig') }}
     </div>
