@@ -1,0 +1,3 @@
+{% if posts.nbPages > 1 %}
+    {{ pagerfanta(posts, null, { 'omitFirstPage': true, 'routeName': 'lyssal_seo_page_show', 'routeParams': { 'slug': app.request.pathInfo|slice(1) } }) }}
+{% endif %}

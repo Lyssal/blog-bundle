@@ -2,4 +2,6 @@
     {%- for post in posts -%}
         {{ include('@LyssalBlog/post/_show.html.twig') }}
     {%- endfor -%}
+
+    {{- include('@LyssalBlog/post/_pagination.html.twig') -}}
 </div>

@@ -7,6 +7,7 @@
  */
 namespace Lyssal\BlogBundle\Controller;
 
+use Lyssal\BlogBundle\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,9 +21,9 @@ class BlogController extends AbstractController
     /**
      * Show a blog.
      *
-     * @Route("/{blog}", name="show", requirements={"blog"="\d+"}, methods={"GET"})
+     * @Route("/{blog}", name="show", requirements={"blog"="\d+", "page"="\d+"}, methods={"GET"})
      */
-    public function show($blog)
+    public function show($blog, $page = 1)
     {
         /**
          * @var \Lyssal\BlogBundle\Entity\Blog $blog
@@ -33,7 +34,8 @@ class BlogController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        $posts = $this->container->get('lyssal.blog.manager.post')->getPagerFantaByBlog($blog);
+        $posts = $this->container->get('lyssal.blog.manager.post')
+             ->getPagerFantaByBlog($blog, Post::POSTS_BY_PAGE, $page);
 
         return $this->render('@LyssalBlog/blog/show.html.twig', [
             'page' => $blog->getPage(),

@@ -7,6 +7,7 @@
  */
 namespace Lyssal\BlogBundle\Controller;
 
+use Lyssal\BlogBundle\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,9 +21,9 @@ class CategoryController extends AbstractController
     /**
      * Show a category.
      *
-     * @Route("/category/{category}", name="show", requirements={"category"="\d+"}, methods={"GET"})
+     * @Route("/category/{category}", name="show", requirements={"category"="\d+", "page"="\d+"}, methods={"GET"})
      */
-    public function show($category)
+    public function show($category, $page = 1)
     {
         /**
          * @var \Lyssal\BlogBundle\Entity\Category $category
@@ -33,7 +34,8 @@ class CategoryController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        $posts = $this->container->get('lyssal.blog.manager.post')->getPagerFantaByCategory($category);
+        $posts = $this->container->get('lyssal.blog.manager.post')
+             ->getPagerFantaByCategory($category, Post::POSTS_BY_PAGE, $page);
 
         return $this->render('@LyssalBlog/category/show.html.twig', [
             'page' => $category->getPage(),

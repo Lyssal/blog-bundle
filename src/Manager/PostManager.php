@@ -11,6 +11,7 @@ use DateTime;
 use Doctrine\Common\Collections\Criteria;
 use Lyssal\BlogBundle\Entity\Blog;
 use Lyssal\BlogBundle\Entity\Category;
+use Lyssal\BlogBundle\Entity\Post;
 use Lyssal\Doctrine\Orm\Manager\EntityManager;
 use Lyssal\Doctrine\Orm\QueryBuilder;
 use Pagerfanta\Pagerfanta;
@@ -29,7 +30,7 @@ class PostManager extends EntityManager
      *
      * @return \Pagerfanta\Pagerfanta The Pagerfanta
      */
-    public function getPagerFantaByBlog(Blog $blog, $limit = 20, $currentPage = 1): Pagerfanta
+    public function getPagerFantaByBlog(Blog $blog, $limit = Post::POSTS_BY_PAGE, $currentPage = 1): Pagerfanta
     {
         $now = new DateTime();
 
@@ -63,7 +64,7 @@ class PostManager extends EntityManager
      *
      * @return \Pagerfanta\Pagerfanta The Pagerfanta
      */
-    public function getPagerFantaByCategory(Category $category, $limit = 20, $currentPage = 1): Pagerfanta
+    public function getPagerFantaByCategory(Category $category, $limit = Post::POSTS_BY_PAGE, $currentPage = 1): Pagerfanta
     {
         $now = new DateTime();
 
