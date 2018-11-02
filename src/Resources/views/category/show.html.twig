@@ -1,5 +1,9 @@
 {% extends '@LyssalBlog/base.html.twig' %}
 
+{% block breadcrumbs %}
+    {{ include('@LyssalEntity/_breadcrumbs/foundation_6.html.twig', { 'breadcrumbs': lyssal_breadcrumbs(category) }) }}
+{% endblock %}
+
 {% block content %}
     <div class="lyssal-blog-category">
         <div class="lyssal-blog-category__properties">

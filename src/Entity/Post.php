@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Lyssal\BlogBundle\Controller\PostController;
+use Lyssal\Entity\Model\Breadcrumb\BreadcrumbableInterface;
 use Lyssal\EntityBundle\Entity\ControllerableInterface;
 use Lyssal\SeoBundle\Entity\PageableInterface;
 use Lyssal\SeoBundle\Entity\Traits\PageTrait;
@@ -22,7 +23,7 @@ use Lyssal\SeoBundle\Entity\Traits\PageTrait;
  * @ORM\MappedSuperclass(repositoryClass="Lyssal\BlogBundle\Repository\PostRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Post implements PageableInterface, ControllerableInterface
+class Post implements PageableInterface, BreadcrumbableInterface, ControllerableInterface
 {
     use PageTrait;
 
@@ -257,6 +258,18 @@ class Post implements PageableInterface, ControllerableInterface
         $slugPattern .= $this->page->getTitle();
 
         return $slugPattern;
+    }
+
+    /**
+     * @see \Lyssal\Entity\Model\Breadcrumb\BreadcrumbableInterface::getBreadcrumbParent()
+     */
+    public function getBreadcrumbParent()
+    {
+        if (count($this->categories) > 0) {
+            return $this->categories->first();
+        }
+
+        return $this->blog;
     }
 
 

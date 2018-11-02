@@ -2,14 +2,14 @@
 <html{% if page.locale is not empty %} lang="{{ page.locale }}"{% endif %}>
     <head>
         <meta charset="UTF-8">
-        {{ include('@LyssalSeo/page/_head/default_tags.html.twig') }}
-        {% block stylesheets %}{% endblock %}
+        {{- include('@LyssalSeo/page/_head/default_tags.html.twig') -}}
+        {%- block stylesheets %}{% endblock -%}
     </head>
     <body>
-        {% block body %}
-            {% block content %}
-            {% endblock %}
-        {% endblock %}
-        {% block javascripts %}{% endblock %}
+        {%- block body -%}
+            {%- block breadcrumbs %}{% endblock -%}
+            {%- block content %}{% endblock -%}
+        {%- endblock -%}
+        {%- block javascripts %}{% endblock -%}
     </body>
 </html>

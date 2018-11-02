@@ -1,5 +1,9 @@
 {% extends '@LyssalBlog/base.html.twig' %}
 
+{% block breadcrumbs %}
+    {{ include('@LyssalEntity/_breadcrumbs/foundation_6.html.twig', { 'breadcrumbs': lyssal_breadcrumbs(post) }) }}
+{% endblock %}
+
 {% block content %}
     <article class="lyssal-blog-post">
         <h1 class="lyssal-blog-post__title">{{ appellation(post) }}</h1>
