@@ -13,7 +13,7 @@
         "symfony/framework-bundle": "~4",
         "lyssal/seo-bundle": "~0.1",
         "lyssal/pagerfanta-bundle": "~0.1",
-        "simplepie/simplepie": "^1.5"
+        "zendframework/zend-feed": "^2.10"
     },
     "autoload": {
         "psr-4": {
