@@ -9,6 +9,7 @@ namespace Lyssal\BlogBundle\Manager;
 
 use DateTime;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityManagerInterface;
 use Lyssal\BlogBundle\Entity\Blog;
 use Lyssal\BlogBundle\Entity\Category;
 use Lyssal\BlogBundle\Entity\Post;
@@ -22,6 +23,38 @@ use Pagerfanta\Pagerfanta;
 class PostManager extends EntityManager
 {
     /**
+     * @var array The default conditions
+     */
+    private static $DEFAULT_CONDITIONS = [
+        'page.online' => true
+    ];
+
+    /**
+     * @var array The default sort
+     */
+    private static $DEFAULT_ORDERBY = [
+      'publishedFrom' => Criteria::DESC
+    ];
+
+
+    /**
+     * @inheritDoc
+     */
+    public function __construct(EntityManagerInterface $entityManager, $class)
+    {
+        parent::__construct($entityManager, $class);
+
+        self::$DEFAULT_CONDITIONS = array_merge(self::$DEFAULT_CONDITIONS, [
+            QueryBuilder::WHERE_LESS_OR_EQUAL => ['publishedFrom' => new DateTime()],
+            QueryBuilder::OR_WHERE => [
+                QueryBuilder::WHERE_NULL => 'publishedUntil',
+                QueryBuilder::WHERE_GREATER => ['publishedUntil' => new DateTime()]
+            ]
+        ]);
+    }
+
+
+    /**
      * Get the PagerFanta by blog.
      *
      * @param \Lyssal\BlogBundle\Entity\Blog $blog        The blog
@@ -32,19 +65,13 @@ class PostManager extends EntityManager
      */
     public function getPagerFantaByBlog(Blog $blog, $limit = Post::POSTS_BY_PAGE, $currentPage = 1): Pagerfanta
     {
-        $now = new DateTime();
+        $conditions = array_merge(self::$DEFAULT_CONDITIONS, [
+            'blog' => $blog
+        ]);
 
         return $this->getRepository()->getPagerFantaFindBy(
-            [
-                'blog' => $blog,
-                'page.online' => true,
-                QueryBuilder::WHERE_LESS_OR_EQUAL => ['publishedFrom' => $now],
-                QueryBuilder::OR_WHERE => [
-                    QueryBuilder::WHERE_NULL => 'publishedUntil',
-                    QueryBuilder::WHERE_GREATER => ['publishedUntil' => $now]
-                ]
-            ],
-            ['publishedFrom' => Criteria::DESC],
+            $conditions,
+            self::$DEFAULT_ORDERBY,
             $limit,
             $currentPage,
             [
@@ -66,19 +93,13 @@ class PostManager extends EntityManager
      */
     public function getPagerFantaByCategory(Category $category, $limit = Post::POSTS_BY_PAGE, $currentPage = 1): Pagerfanta
     {
-        $now = new DateTime();
+        $conditions = array_merge(self::$DEFAULT_CONDITIONS, [
+            'category' => $category
+        ]);
 
         return $this->getRepository()->getPagerFantaFindBy(
-            [
-                'category' => $category,
-                'page.online' => true,
-                QueryBuilder::WHERE_LESS_OR_EQUAL => ['publishedFrom' => $now],
-                QueryBuilder::OR_WHERE => [
-                    QueryBuilder::WHERE_NULL => 'publishedUntil',
-                    QueryBuilder::WHERE_GREATER => ['publishedUntil' => $now]
-                ]
-            ],
-            ['publishedFrom' => Criteria::DESC],
+            $conditions,
+            self::$DEFAULT_ORDERBY,
             $limit,
             $currentPage,
             [

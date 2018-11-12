@@ -15,6 +15,11 @@ services:
             $blogClassname: '%lyssal.blog.entity.blog.class%'
             $categoryClassname: '%lyssal.blog.entity.category.class%'
             $postClassname: '%lyssal.blog.entity.post.class%'
+            $appellationManager: '@lyssal.appellation'
+            $postManager: '@lyssal.blog.manager.post'
 
     Lyssal\BlogBundle\:
         resource: '../../{Form}/'
+
+    Lyssal\BlogBundle\Syndication\PostGenerator:
+        public: true
