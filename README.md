@@ -16,10 +16,6 @@ Read the [documentation](doc/HowToUse.md).
 If you use EasyAdmin, please read the [EasyAdmin documentation](doc/EasyAdmin.md).
 
 
-## PhpDoc
+## Syndication
 
-Execute :
-
-```sh
-phpdoc -c doc/phpdoc.tpl.xml
-```
+Read the [Syndication documentation](doc/Syndication.md) for more information.
