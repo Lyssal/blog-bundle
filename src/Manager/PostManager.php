@@ -63,7 +63,7 @@ class PostManager extends EntityManager
      *
      * @return \Pagerfanta\Pagerfanta The Pagerfanta
      */
-    public function getPagerFantaByBlog(Blog $blog, $limit = Post::POSTS_BY_PAGE, $currentPage = 1): Pagerfanta
+    public function getPagerFantaByBlog(Blog $blog, $limit = Post::POSTS_PER_PAGE, $currentPage = 1): Pagerfanta
     {
         $conditions = array_merge(self::$DEFAULT_CONDITIONS, [
             'blog' => $blog
@@ -91,7 +91,7 @@ class PostManager extends EntityManager
      *
      * @return \Pagerfanta\Pagerfanta The Pagerfanta
      */
-    public function getPagerFantaByCategory(Category $category, $limit = Post::POSTS_BY_PAGE, $currentPage = 1): Pagerfanta
+    public function getPagerFantaByCategory(Category $category, $limit = Post::POSTS_PER_PAGE, $currentPage = 1): Pagerfanta
     {
         $conditions = array_merge(self::$DEFAULT_CONDITIONS, [
             'category' => $category

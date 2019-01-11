@@ -35,7 +35,7 @@ class CategoryController extends AbstractController
         }
 
         $posts = $this->container->get('lyssal.blog.manager.post')
-             ->getPagerFantaByCategory($category, Post::POSTS_BY_PAGE, $page);
+             ->getPagerFantaByCategory($category, Post::POSTS_PER_PAGE, $page);
 
         return $this->render('@LyssalBlog/category/show.html.twig', [
             'page' => $category->getPage(),

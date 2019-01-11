@@ -31,7 +31,7 @@ class Post implements PageableInterface, BreadcrumbableInterface, Controllerable
     /**
      * @var int Number of posts by page for pagination
      */
-    const POSTS_BY_PAGE = 2;
+    const POSTS_PER_PAGE = 12;
 
 
     /**

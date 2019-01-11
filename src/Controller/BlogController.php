@@ -35,7 +35,7 @@ class BlogController extends AbstractController
         }
 
         $posts = $this->container->get('lyssal.blog.manager.post')
-             ->getPagerFantaByBlog($blog, Post::POSTS_BY_PAGE, $page);
+             ->getPagerFantaByBlog($blog, Post::POSTS_PER_PAGE, $page);
 
         return $this->render('@LyssalBlog/blog/show.html.twig', [
             'page' => $blog->getPage(),
