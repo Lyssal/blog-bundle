@@ -9,6 +9,7 @@ namespace Lyssal\BlogBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Lyssal\BlogBundle\Controller\BlogController;
 use Lyssal\EntityBundle\Entity\ControllerableInterface;
@@ -163,5 +164,18 @@ class Blog implements PageableInterface, ControllerableInterface
             null !== $this->page
             && $this->page->isAccessible()
         ;
+    }
+
+    /**
+     * Get the category parents.
+     *
+     * @return \Lyssal\BlogBundle\Entity\Category[] The parents
+     */
+    public function getCategoryParents()
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->isNull('parent'));
+
+        return $this->categories->matching($criteria);
     }
 }
