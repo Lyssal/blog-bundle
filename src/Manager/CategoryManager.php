@@ -39,6 +39,6 @@ class CategoryManager extends EntityManager
             $conditions['parent'] = $categoryParent;
         }
 
-        return $this->findBy($conditions);
+        return $this->findBy($conditions, ['position' => 'ASC']);
     }
 }

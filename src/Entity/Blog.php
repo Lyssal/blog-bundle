@@ -47,6 +47,7 @@ class Blog implements PageableInterface, ControllerableInterface
      * @var \Doctrine\Common\Collections\Collection<\Lyssal\BlogBundle\Entity\Category> The categories
      *
      * @ORM\OneToMany(targetEntity="Category", mappedBy="blog")
+     * @ORM\OrderBy({"position"="ASC"})
      */
     protected $categories;
 
@@ -174,7 +175,8 @@ class Blog implements PageableInterface, ControllerableInterface
     public function getCategoryParents()
     {
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->isNull('parent'));
+            ->where(Criteria::expr()->isNull('parent'))
+            ->orderBy(['position' => 'ASC']);
 
         return $this->categories->matching($criteria);
     }

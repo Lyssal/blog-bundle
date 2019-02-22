@@ -98,6 +98,7 @@ class Post implements PageableInterface, BreadcrumbableInterface, Controllerable
      * @var \Doctrine\Common\Collections\Collection<\Lyssal\BlogBundle\Entity\Category> The categories
      *
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="posts")
+     * @ORM\OrderBy({"position"="ASC"})
      */
     protected $categories;
 

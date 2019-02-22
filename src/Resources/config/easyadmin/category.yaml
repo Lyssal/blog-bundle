@@ -9,3 +9,4 @@ easy_admin:
                     - { property: 'page', label: false, type: 'Lyssal\SeoBundle\Form\Type\PageType' }
                     - { type: 'divider' }
                     - 'parent'
+                    - 'position'

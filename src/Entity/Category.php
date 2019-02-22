@@ -52,6 +52,13 @@ class Category implements PageableInterface, BreadcrumbableInterface, Controller
     protected $page;
 
     /**
+     * @var int The position
+     *
+     * @ORM\Column(type="integer", nullable=false, options={"default"=1})
+     */
+    protected $position;
+
+    /**
      * @var \Lyssal\BlogBundle\Entity\Category The parent category
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
@@ -63,6 +70,7 @@ class Category implements PageableInterface, BreadcrumbableInterface, Controller
      * @var \Doctrine\Common\Collections\Collection<\Lyssal\BlogBundle\Entity\Category> The categories
      *
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OrderBy({"position"="ASC"})
      */
     protected $children;
 
@@ -84,6 +92,18 @@ class Category implements PageableInterface, BreadcrumbableInterface, Controller
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
+
+        return $this;
     }
 
     public function getBlog(): ?Blog
