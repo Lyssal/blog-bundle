@@ -125,7 +125,7 @@ class PostGenerator
 
             $item->setTitle($this->appellationManager->appellation($post));
             $item->setLink($this->urlGenerator->generate('lyssal_seo_page_show', ['slug' => $page->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL));
-            $item->setContent($post->getBody());
+            $item->setContent('<![CDATA['.$post->getBody().']]>');
             $item->setDateCreated($post->getCreatedAt());
             $item->setDateModified($post->getDate());
             $item->setDescription($page->getDescription());
