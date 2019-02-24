@@ -128,7 +128,9 @@ class PostGenerator
             $item->setContent('<![CDATA['.$post->getBody().']]>');
             $item->setDateCreated($post->getCreatedAt());
             $item->setDateModified($post->getDate());
-            $item->setDescription($page->getDescription());
+            if (null !== $page->getDescription()) {
+                $item->setDescription($page->getDescription());
+            }
 
             $feed->addEntry($item);
         }
